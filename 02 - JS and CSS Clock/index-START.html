@@ -57,16 +57,58 @@
     }
 
     .hand {
+      border-radius: 3px;
       width:50%;
       height:6px;
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+    .second-hand {
+      background: blue;
+      height: 1px;
+      border-radius: 0px;
+
+    }
+    .min-hand {
+      height: 4px;
+    }
+    .hour-hand {
+
     }
 
   </style>
 
   <script>
+    const secondHand = document.querySelector('.second-hand');
+    const minHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    function setDate() {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      console.log('SECONDS', seconds)
+      const secondsDegress = ((seconds / 60) * 360) + 90;
+      secondHand.style.transform = `rotate(${secondsDegress}deg)`;
+
+      const minutes = now.getMinutes();
+      const minutesDegrees = ((minutes / 60) * 360) + 90;
+      minHand.style.transform = `rotate(${minutesDegrees}deg)`
+
+      const hours = now.getHours();
+      const hourDegrees = ((hours / 12) * 360) + 90;
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`
+
+
+
+    }
+    // we have seconds, how do you turn it into a degree?
+
+    setInterval(setDate, 1000)
 
 
   </script>
