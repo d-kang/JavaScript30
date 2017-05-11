@@ -31,38 +31,46 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-  var yearBorn = inventors.reduce((prev, next) => {
-    if (next.year >= 1500 && next.year <= 1599) prev.push(next);
+  const yearBorn = inventors.reduce((prev, next) => {
+    if (next.year >= 1500 && next.year < 1600) prev.push(next);
     return prev;
   }, [])
-
+  console.table(yearBorn)
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
-    var fullName = inventors.reduce((prev, next) => {
+    const fullName = inventors.reduce((prev, next) => {
       prev.push(`${next.first} ${next.last}`);
       return prev;
     }, [])
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    inventors.sort((a, b) =>  a.year - b.year)
+    const ordered = inventors.sort((a, b) =>  a.year - b.year)
+    console.table(ordered)
 
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
-     var yearsAlive = inventors.reduce((prev, next) => {
+     const yearsAlive = inventors.reduce((prev, next) => {
        prev.push(`${next.first} ${next.last} lived to be ${next.passed - next.year} years old`);
        return prev;
      }, [])
+    console.table(yearsAlive)
+    const totalYears = inventors.reduce((prev, next) => {
+      return prev + next.passed - next.year;
+    }, 0)
+
+    console.log(totalYears)
+
     // 5. Sort the inventors by years lived
-    var yearsLived = inventors.reduce((prev, next) => {
+    let yearsLived = inventors.reduce((prev, next) => {
         next.lived = next.passed - next.year;
         return prev;
     }, null)
     yearsLived = inventors.sort((a, b) => a.lived - b.lived);
-    // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+    // 6. create a list of Bouleconstds in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-    var codersInParis = `Boulevards of Paris
+    const codersInParis = `Bouleconstds of Paris
       City walls of Paris
       Thiers wall
       Wall of Charles V
@@ -70,53 +78,67 @@
       *
       City gates of Paris
       Haussmann's renovation of Paris
-      Boulevards of the Marshals
+      Bouleconstds of the Marshals
       A
-      Boulevard Auguste-Blanqui
+      Bouleconstd Auguste-Blanqui
       B
-      Boulevard Barbès
-      Boulevard Beaumarchais
-      Boulevard de l'Amiral-Bruix
+      Bouleconstd Barbès
+      Bouleconstd Beaumarchais
+      Bouleconstd de l'Amiral-Bruix
       C
-      Boulevard des Capucines
-      Boulevard de la Chapelle
-      Boulevard de Clichy
-      Boulevard du Crime
+      Bouleconstd des Capucines
+      Bouleconstd de la Chapelle
+      Bouleconstd de Clichy
+      Bouleconstd du Crime
       H
-      Boulevard Haussmann
-      Boulevard de l'Hôpital
+      Bouleconstd Haussmann
+      Bouleconstd de l'Hôpital
       I
-      Boulevard des Italiens
+      Bouleconstd des Italiens
       M
-      Boulevard de la Madeleine
-      Boulevard de Magenta
-      Boulevard Montmartre
-      Boulevard du Montparnasse
+      Bouleconstd de la Madeleine
+      Bouleconstd de Magenta
+      Bouleconstd Montmartre
+      Bouleconstd du Montparnasse
       R
-      Boulevard Raspail
-      Boulevard Richard-Lenoir
-      Boulevard de Rochechouart
+      Bouleconstd Raspail
+      Bouleconstd Richard-Lenoir
+      Bouleconstd de Rochechouart
       S
-      Boulevard Saint-Germain
-      Boulevard Saint-Michel
-      Boulevard de Sébastopol
-      Boulevard de Strasbourg
+      Bouleconstd Saint-Germain
+      Bouleconstd Saint-Michel
+      Bouleconstd de Sébastopol
+      Bouleconstd de Strasbourg
       T
-      Boulevard du Temple
+      Bouleconstd du Temple
       V
-      Boulevard Voltaire
+      Bouleconstd Voltaire
       Z
-      Boulevard de la Zone`
-      var rendered = codersInParis.split('\n').filter(a => a.length > 1 && a.includes('de'))
+      Bouleconstd de la Zone`
+      const rendered = codersInParis.split('\n').filter(a => a.length > 1 && a.includes('de'))
+
+      // const category = document.querySelector(".mw-category")
+      // const links = category.querySelector("a");
+      // const list = Array.prototype.slice.call(links)
+      // const streets = list.reduce((prev, next) => {
+      //   if (next.innerText.includes('de')) {
+      //     prev.push(next,innerText)
+      //   }
+      //     return prev;
+      //   }, [])
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-
+    const alpha = people.sort((lastOne, nextOne) => {
+    const [aLast, aFirst] = lastOne.split(', ')
+    const [bLast, bFirst] = nextOne.split(', ') 
+    return aLast > bLast ? -1 : 1;
+    })
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
-    var instanceOf = data.reduce((prev, next) => {
+    const instanceOf = data.reduce((prev, next) => {
       if (!prev.hasOwnProperty(next)) {
         prev[next] = 0;
       }
